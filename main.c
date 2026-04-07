@@ -16,7 +16,7 @@ bool isTobacco = false, isPaper = false, isMatch = false;
 
 // Agent Threads
 void* agentA(void* arg) { //Tobacco Paper
-    for (int i = 0; i < 6; ++i) {
+    for (int i = 0; i < 6; i++) {
         usleep((rand() % 200) * 1000); // Sleep up to 200ms
         sem_wait(&agentSem);
         printf("Agent A Puts tobacco and paper on the table\n");
@@ -28,7 +28,7 @@ void* agentA(void* arg) { //Tobacco Paper
 }
 
 void* agentB(void* arg) { //Paper Match
-    for (int i = 0; i < 6; ++i) {
+    for (int i = 0; i < 6; i++) {
         usleep((rand() % 200) * 1000);
         sem_wait(&agentSem);
         printf("Agent B Puts paper and a match on the table\n");
@@ -40,7 +40,7 @@ void* agentB(void* arg) { //Paper Match
 }
 
 void* agentC(void* arg) { // Match Tobacco
-    for (int i = 0; i < 6; ++i) {
+    for (int i = 0; i < 6; i++) {
         usleep((rand() % 200) * 1000);
         sem_wait(&agentSem);
         printf("Agent C Puts a match and tobacco on the table\n");
@@ -54,7 +54,7 @@ void* agentC(void* arg) { // Match Tobacco
 //Pusher Threads
 
 void* pusherTobacco(void* arg) {
-    for (int i = 0; i < 12; ++i) {
+    for (int i = 0; i < 12; i++) {
         sem_wait(&tobacco);
         sem_wait(&mutex);
 
@@ -74,7 +74,7 @@ void* pusherTobacco(void* arg) {
 }
 
 void* pusherPaper(void* arg) {
-    for (int i = 0; i < 12; ++i) {
+    for (int i = 0; i < 12; i++) {
         sem_wait(&paper);
         sem_wait(&mutex);
 
@@ -94,7 +94,7 @@ void* pusherPaper(void* arg) {
 }
 
 void* pusherMatch(void* arg) {
-    for (int i = 0; i < 12; ++i) {
+    for (int i = 0; i < 12; i++) {
         sem_wait(&match);
         sem_wait(&mutex);
 
@@ -117,7 +117,7 @@ void* pusherMatch(void* arg) {
 
 void* smokerTobacco(void* arg) {
     int id = *((int*)arg);
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 3; i++) {
         sem_wait(&tobaccoSem);
 
         printf("Smoker %d has Tobacco Making cigarette #%d...\n", id, i + 1);
@@ -134,7 +134,7 @@ void* smokerTobacco(void* arg) {
 
 void* smokerPaper(void* arg) {
     int id = *((int*)arg);
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 3; i++) {
         sem_wait(&paperSem);
 
         printf("Smoker %d has Paper Making cigarette #%d...\n", id, i + 1);
@@ -151,7 +151,7 @@ void* smokerPaper(void* arg) {
 
 void* smokerMatch(void* arg) {
     int id = *((int*)arg);
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 3; i++) {
         sem_wait(&matchSem);
 
         printf("Smoker %d has Match Making cigarette #%d...\n", id, i + 1);
@@ -209,9 +209,9 @@ int main() {
     pthread_create(&smokers[5], NULL, smokerMatch, &smokerIds[5]);
 
     // Join All Threads
-    for (int i = 0; i < 3; ++i) pthread_join(agents[i], NULL);
-    for (int i = 0; i < 3; ++i) pthread_join(pushers[i], NULL);
-    for (int i = 0; i < 6; ++i) pthread_join(smokers[i], NULL);
+    for (int i = 0; i < 3; i++) pthread_join(agents[i], NULL);
+    for (int i = 0; i < 3; i++) pthread_join(pushers[i], NULL);
+    for (int i = 0; i < 6; i++) pthread_join(smokers[i], NULL);
 
     // Clean up semaphores
     sem_destroy(&agentSem);
