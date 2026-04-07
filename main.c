@@ -166,8 +166,6 @@ void* smokerMatch(void* arg) {
     return NULL;
 }
 
-// --- Main Execution ---
-
 int main() {
     srand(time(NULL)); // Seed random number generator
 
