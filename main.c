@@ -125,7 +125,7 @@ void* smokerTobacco(void* arg) {
 
         sem_post(&agentSem); // Ingredients picked up, signal agent
 
-        printf("[Smoker %d has Tobacco Smoking cigarette #%d...\n", id, i + 1);
+        printf("Smoker %d has Tobacco Smoking cigarette #%d...\n", id, i + 1);
         usleep((rand() % 50) * 1000); // Smoke cigarette (up to 50ms)
     }
     printf("Smoker %d has Tobacco Done smoking\n", id);
@@ -223,6 +223,5 @@ int main() {
     sem_destroy(&matchSem);
     sem_destroy(&mutex);
 
-    printf("\n=== Simulation Complete ===\n");
     return 0;
 }
